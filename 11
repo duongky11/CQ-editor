@@ -1,0 +1,17 @@
+import cadquery as cq
+
+# Phác thảo mặt cắt dọc và quay 360 độ
+result = (
+    cq.Workplane("XZ")
+    .lineTo(0, 3)  # Thành ngoài, cao 3mm
+    .threePointArc((0.6, 3), (1.2, 2.44))  # Bo cong ngoài
+    .lineTo(1.5, 1.2)  # Dốc vào
+    .threePointArc((1.6, 0.6), (1.8, 0.3))  # Bo cong chân
+    .lineTo(1.8, 0)  # Đáy
+    .lineTo(0, 0)  # Khép kín mặt cắt
+    .close()
+    .revolve(360)  # Quay quanh trục Z
+)
+
+# Xuất file STEP
+cq.exporters.export(result, "part_from_drawing.step")
